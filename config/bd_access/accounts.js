@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
-const sequelize_accounts = new Sequelize(`${process.env.ACCOUNTS_DBNAME}`, `${process.env.ACCOUNTS_USER}`, `${process.env.ACCOUNTS_PASSWORD}`, {
-    host: `${process.env.ACCOUNTS_HOST}`,
+const sequelize_accounts = new Sequelize(process.env.ACCOUNTS_DBNAME, process.env.ACCOUNTS_USER, `${process.env.ACCOUNTS_PASSWORD}`, {
+    host: process.env.ACCOUNTS_HOST,
     dialect: 'mysql'
 })
 

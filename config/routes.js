@@ -1,6 +1,8 @@
 const express = require('express')
 const routes = express.Router()
 const mysql = require('mysql2')
+const dotenv = require('dotenv')
+dotenv.config()
 const {sequelize_schedules} = require('./bd_access/schedules.js')
 const {schedulings} = require('./bd_access/schedules.js')
 const {sequelize_accounts} = require('./bd_access/schedules.js')

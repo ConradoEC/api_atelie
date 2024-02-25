@@ -1,8 +1,12 @@
 const express = require('express')
 const routes = require('./config/routes')
+const dotenv = require('dotenv')
 
 const app = express()
 const PORT = 3000
+
+dotenv.config()
+app.use(routes)
 
 app.listen(process.env.PORT ? Number(process.env.PORT) : PORT, () => 
 {
@@ -14,5 +18,4 @@ app.get('/', (req, res) =>
     res.send("Bem vindo a página principal da API")
 })
 
-app.use(routes)
 
