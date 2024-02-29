@@ -1,14 +1,13 @@
 const express = require('express')
 const routes = express.Router()
 const mysql = require('mysql2')
-const dotenv = require('dotenv')
 const json = express.json()
-dotenv.config()
-
+const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
 const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
-const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
+const dotenv = require('dotenv')
 
+dotenv.config()
 connectionMongoDB()
 
 routes.get('/schedules', (req, res) =>

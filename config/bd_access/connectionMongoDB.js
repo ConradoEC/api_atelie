@@ -6,6 +6,7 @@ const connectionMongoDB = async() => {
         console.log('Funcionou')
     })
     .catch((error) => {
+        console.log(`${process.env.DB_USER} e ${process.env.DB_PASSWORD}`)
         console.log('Não Funcionou por causa do erro: ' + error)
     })
 }

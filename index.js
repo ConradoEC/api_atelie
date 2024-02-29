@@ -1,9 +1,8 @@
 const express = require('express')
 const routes = require('./config/routes.js')
-const dotenv = require('dotenv')
-
 const app = express()
 const PORT = 3000
+const dotenv = require('dotenv')
 
 app.use(express.json())
 app.use(routes)
