@@ -88,11 +88,11 @@ routes.post('/newUser', (req, res) =>
 
     if(sameUser)
     {
-        res.send(2, 'Este email e usuário já estão sendo utilizados')
+        res.send([2, 'Este email e usuário já estão sendo utilizados'])
     }
     else
     {
-        res.send(3, "Usuário criado com sucesso")
+        res.send([3, "Usuário criado com sucesso"])
         const newUser = accountsModel.create({
             newUserName: `${newUserName}`,
             newUserPassword: `${newUserPassword}`,
@@ -113,11 +113,11 @@ routes.post('/login', (req, res) =>
 
     if(thisUser)
     {
-        res.send(thisUser, 'Acesso permitido')
+        res.send([thisUser, 'Acesso permitido'])
     }
     else
     {
-        res.send(thisUser, 'Acesso negado')
+        res.send([thisUser, 'Acesso negado'])
     }
 })
 
