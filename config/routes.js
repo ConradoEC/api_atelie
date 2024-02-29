@@ -74,7 +74,7 @@ routes.post('/schedules', (req, res) =>
     // })
 })
 
-routes.post('/newUser', (req, res) =>
+routes.post('/newUser', async(req, res) =>
 {
     const newUserName = req.body.newUserName
     const newUserPassword = req.body.newUserPassword
@@ -93,7 +93,7 @@ routes.post('/newUser', (req, res) =>
     // }
     // else
     // {
-        const newUser = accountsModel.create({
+        const newUser = await accountsModel.create({
             userName: `${newUserName}`,
             userPassword: `${newUserPassword}`,
             userEmail: `${newUserEmail}`
