@@ -2,28 +2,35 @@ const express = require('express')
 const routes = express.Router()
 const mysql = require('mysql2')
 const dotenv = require('dotenv')
+const json = express.json()
 dotenv.config()
-const {sequelize_schedules} = require('./bd_access/schedules.js')
-const {schedulings} = require('./bd_access/schedules.js')
-const {sequelize_accounts} = require('./bd_access/schedules.js')
-const {accounts} = require('./bd_access/schedules.js')
+
+const scheduleModel = require('./bd_access/schedules.js')
+const accountsModel = require('./bd_access/accounts.js')
 
 routes.get('/schedules', (req, res) =>
 {
-    (async() => {
-        await sequelize_schedules.sync()
-        const allSchedulings = await schedulings.findAll()
-        res.send(allSchedulings)
-    })()
+    const allSchedules = scheduleModel.find({})
+    // res.send(JSON.parse(allSchedules))
+
+    // (async() => {
+    //     await sequelize_schedules.sync()
+    //     const allSchedulings = await schedulings.findAll()
+    //     res.send(allSchedulings)
+    // })()
 })
 
 routes.get('/accounts', (req, res) =>
 {
-    (async() => {
-        await sequelize_accounts.sync()
-        const allAccounts = await accounts.findAll()
-        res.send(allAccounts)
-    })()
+    const allAccounts = accountsModel.find({})
+    // console.log(JSON.parse(allAccounts))
+    
+
+    // (async() => {
+    //     await sequelize_accounts.sync()
+    //     const allAccounts = await accounts.findAll()
+    //     res.send(allAccounts)
+    // })()
 })
 
 routes.post('/schedules', (req, res) =>
@@ -39,19 +46,32 @@ routes.post('/schedules', (req, res) =>
     const price = req.body.title
     const costumerId = req.body.title
 
-    const newSchedule = schedulings.create({
-        title: `${title}`,
-        scheduleDate: `${scheduleDate}`,
-        scheduleTime: `${scheduleTime}`,
-        costumerName: `${costumerName}`,
-        costumerCell: `${costumerCell}`,
-        costumerEmail: `${costumerEmail}`,
-        description: `${description}`,
-        marker: `${marker}`,
-        price: `${price}`,
+    const newSchedule = scheduleModel.create({
+        title: `${title}` ,
+        scheduleDate: `${scheduleDate}` ,
+        schedulingTime: `${scheduleTime}` ,
+        costumerName: `${costumerName}` ,
+        costumerCell: `${costumerCell}` ,
+        costumerEmail: `${costumerEmail}` ,
+        description: `${description}` ,
+        marker: `${marker}` ,
+        price: `${price}` ,
         costumerId: `${costumerId}`
     })
-    // schedules_connection.query(`INSERT INTO schedule(title, scheduleDate, scheduleTime, client, phone, email, description, marker, price) VALUES ("${title}", "${scheduleDate}", "${scheduleTime}", "${client}", "${phone}", "${email}", "${description}", "${marker}", "${price}")`)
+
+
+    // const newSchedule = schedulings.create({
+    //     title: `${title}`,
+    //     scheduleDate: `${scheduleDate}`,
+    //     scheduleTime: `${scheduleTime}`,
+    //     costumerName: `${costumerName}`,
+    //     costumerCell: `${costumerCell}`,
+    //     costumerEmail: `${costumerEmail}`,
+    //     description: `${description}`,
+    //     marker: `${marker}`,
+    //     price: `${price}`,
+    //     costumerId: `${costumerId}`
+    // })
 })
 
 routes.post('/newUser', (req, res) =>
@@ -60,16 +80,20 @@ routes.post('/newUser', (req, res) =>
     const newUserPassword = req.body.newUserPassword
     const newUserEmail = req.body.newUserEmail
 
-    const thisNewUser = accounts.findOne()
+    const sameUser = accountsModel.findOne({
+        userName: `${newUserName}`,
+        userEmail: `${newUserEmail}`
+    }).exec()
 
-    if(thisNewUser)
+
+    if(sameUser)
     {
-        res.send(2, 'Este usuário e esta senha já foram utilizados')
+        res.send(2, 'Este email e usuário já estão sendo utilizados')
     }
     else
     {
         res.send(3, "Usuário criado com sucesso")
-        const newAccount = accounts.create({
+        const newUser = accountsModel.create({
             newUserName: `${newUserName}`,
             newUserPassword: `${newUserPassword}`,
             newUserEmail: `${newUserEmail}`
@@ -82,7 +106,10 @@ routes.post('/login', (req, res) =>
     const userName = req.body.varUserName
     const userPassword = req.body.varUserPassword
 
-    const thisUser = accounts.findOne()
+    const thisUser = accountsModel.findOne({
+        userName: `${userName}`,
+        userPassword: `${userPassword}`
+    }).exec()
 
     if(thisUser)
     {

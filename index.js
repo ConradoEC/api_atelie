@@ -1,12 +1,13 @@
 const express = require('express')
-const routes = require('./config/routes')
+const routes = require('./config/routes.js')
 const dotenv = require('dotenv')
 
 const app = express()
 const PORT = 3000
 
-dotenv.config()
+app.use(express.json())
 app.use(routes)
+dotenv.config()
 
 app.listen(process.env.PORT ? Number(process.env.PORT) : PORT, () => 
 {

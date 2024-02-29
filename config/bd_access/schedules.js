@@ -1,66 +1,79 @@
-const Sequelize = require('sequelize')
-const sequelize_schedules = new Sequelize(process.env.SCHEDULES_DBNAME, process.env.SCHEDULES_USER, process.env.SCHEDULES_PASSWORD, {
-    host: process.env.SCHEDULES_HOST,
-    dialect: 'mysql'
-})
+const mongoose = require('mongoose')
 
-sequelize_schedules.authenticate().then(function(){
-    console.log("Conexão bem estabelecida")
-}).catch(function(error){
-    // console.log(`A conexão não foi estabelecida por causa do erro: ${error)
-})
-
-const schedulings = sequelize_schedules.define('schedules', {
+const scheduleSchema = new mongoose.Schema({
     id: {
-        type: Sequelize.INTEGER,
+        type: Number,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     title: {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     schedulingDate: {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     schedulingTime: {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     costumerName: {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     costumerCell: {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     costumerEmail: {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     description: 
     {
-        type: Sequelize.TEXT,
+        type: String,
         allowNull: false
     },
     marker: 
     {
-        type: Sequelize.STRING,
+        type: String,
         allowNull: false
     },
     price: {
-        type: Sequelize.FLOAT,
+        type: Number,
         allowNull: false
     },
     costumerId: {
-        type: Sequelize.INTEGER,
+        type: Number,
         allowNull: false,
     }
 })
 
+scheduleSchema.query.byName = function(name) {
+    return this.where({name: RegExp(name, 'i')})
+}
+
+const scheduleModel = mongoose.model('schedules', scheduleSchema)
+
+
+
+// const Sequelize = require('sequelize')
+// const sequelize_schedules = new Sequelize(`${process.env.SCHEDULES_DBNAME}`, `${process.env.SCHEDULES_USER}`, `${process.env.SCHEDULES_PASSWORD}`, {
+//     host: process.env.SCHEDULES_HOST,
+//     dialect: 'mysql'
+// })
+
+// sequelize_schedules.authenticate().then(function(){
+//     console.log("Conexão bem estabelecida")
+// }).catch(function(error){
+//     console.log(`A conexão não foi estabelecida por causa do erro: ${error}`)
+// })
+
+// const schedulings = sequelize_schedules.define('schedules', {
+// })
+
 // host: '104.21.14.166',
 
-module.exports = {sequelize_schedules, schedulings}
+module.exports = scheduleModel
