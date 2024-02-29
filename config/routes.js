@@ -94,9 +94,9 @@ routes.post('/newUser', (req, res) =>
     // else
     // {
         const newUser = accountsModel.create({
-            newUserName: `${newUserName}`,
-            newUserPassword: `${newUserPassword}`,
-            newUserEmail: `${newUserEmail}`
+            userName: `${newUserName}`,
+            userPassword: `${newUserPassword}`,
+            userEmail: `${newUserEmail}`
         })
         res.send([3, "Usuário criado com sucesso"])
     // }
