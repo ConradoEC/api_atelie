@@ -36,15 +36,15 @@ routes.get('/accounts', (req, res) =>
 routes.post('/schedules', (req, res) =>
 {
     const title = req.body.title
-    const scheduleDate = req.body.title
-    const scheduleTime = req.body.title
-    const costumerName = req.body.title
-    const costumerCell = req.body.title
-    const costumerEmail = req.body.title
-    const description = req.body.title
-    const marker = req.body.title
-    const price = req.body.title
-    const costumerId = req.body.title
+    const scheduleDate = req.body.scheduleDate
+    const scheduleTime = req.body.scheduleTime
+    const costumerName = req.body.costumerName
+    const costumerCell = req.body.costumerCell
+    const costumerEmail = req.body.costumerEmail
+    const description = req.body.description
+    const marker = req.body.marker
+    const price = req.body.price
+    const costumerId = req.body.costumerId
 
     const newSchedule = scheduleModel.create({
         title: `${title}` ,
@@ -113,11 +113,11 @@ routes.post('/login', (req, res) =>
 
     if(thisUser)
     {
-        res.send(3, 'Acesso permitido')
+        res.send(thisUser, 'Acesso permitido')
     }
     else
     {
-        res.send(2, 'Acesso negado')
+        res.send(thisUser, 'Acesso negado')
     }
 })
 

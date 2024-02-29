@@ -51,10 +51,6 @@ const scheduleSchema = new mongoose.Schema({
     }
 })
 
-scheduleSchema.query.byName = function(name) {
-    return this.where({name: RegExp(name, 'i')})
-}
-
 const scheduleModel = mongoose.model('schedules', scheduleSchema)
 
 
