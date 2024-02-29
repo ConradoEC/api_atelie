@@ -7,6 +7,9 @@ dotenv.config()
 
 const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
+const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
+
+connectionMongoDB()
 
 routes.get('/schedules', (req, res) =>
 {
