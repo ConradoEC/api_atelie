@@ -80,25 +80,26 @@ routes.post('/newUser', (req, res) =>
     const newUserPassword = req.body.newUserPassword
     const newUserEmail = req.body.newUserEmail
 
-    const sameUser = accountsModel.findOne({
-        userName: `${newUserName}`,
-        userEmail: `${newUserEmail}`
-    }).exec()
+    
+    // const sameUser = accountsModel.findOne({
+    //     userName: `${newUserName}`,
+    //     userEmail: `${newUserEmail}`
+    // }).exec()
 
 
-    if(sameUser)
-    {
-        res.send([2, 'Este email e usuário já estão sendo utilizados'])
-    }
-    else
-    {
-        res.send([3, "Usuário criado com sucesso"])
+    // if(sameUser)
+    // {
+    //     res.send([2, 'Este email e usuário já estão sendo utilizados'])
+    // }
+    // else
+    // {
         const newUser = accountsModel.create({
             newUserName: `${newUserName}`,
             newUserPassword: `${newUserPassword}`,
             newUserEmail: `${newUserEmail}`
         })
-    }
+        res.send([3, "Usuário criado com sucesso"])
+    // }
 })
 
 routes.post('/login', (req, res) =>  
