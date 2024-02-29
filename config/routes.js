@@ -93,18 +93,12 @@ routes.post('/newUser', async(req, res) =>
     // }
     // else
     // {
-        try{
-            const newUser = await accountsModel.create({
-                userName: `${newUserName}`,
-                userPassword: `${newUserPassword}`,
-                userEmail: `${newUserEmail}`
-            })
-            res.send([3, "Usuário criado com sucesso"])
-        }catch(error)
-        {
-            console.log(error)
-        }
-        
+        const newUser = await accountsModel.create({
+            userName: `${newUserName}`,
+            userPassword: `${newUserPassword}`,
+            userEmail: `${newUserEmail}`
+        })
+        res.send([3, "Usuário criado com sucesso"])
     // }
 })
 
