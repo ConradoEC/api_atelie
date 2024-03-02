@@ -4,8 +4,8 @@ const app = express()
 const PORT = 3000
 const dotenv = require('dotenv')
 
-app.use(express.json())
 app.use(routes)
+app.use(express.json())
 dotenv.config()
 
 app.listen(process.env.PORT ? Number(process.env.PORT) : PORT, () => 

@@ -1,11 +1,11 @@
 const express = require('express')
 const routes = express.Router()
 const mysql = require('mysql2')
-const json = express.json()
 const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
 const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
 const dotenv = require('dotenv')
+routes.use(express.json())
 
 dotenv.config()
 connectionMongoDB()
@@ -97,7 +97,11 @@ routes.post('/newUser', (req, res) =>
     // }
     // else
     // {
-        const newUser = accountsModel.create(req.body)
+        const newUser = accountsModel.create({
+            userName: `${newUserName}`,
+            userPassword: `${newUserPassword}`,
+            userEmail: `${newUserEmail}`
+        })
         res.send(req.body)
     // }
 })
