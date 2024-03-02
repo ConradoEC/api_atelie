@@ -25,7 +25,7 @@ routes.get('/schedules', (req, res) =>
 routes.get('/accounts', (req, res) =>
 {
     const allAccounts = accountsModel.find({})
-    res.send(JSON.parse(allAccounts))
+    res.send(allAccounts)
     // console.log(JSON.parse(allAccounts))
     
 
