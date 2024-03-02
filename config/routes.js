@@ -77,12 +77,12 @@ routes.post('/schedules', (req, res) =>
     // })
 })
 
-routes.post('/newUser', async(req, res) =>
+routes.post('/newUser', (req, res) =>
 {
 
-    const newUserName = await req.body.newUserName
-    const newUserPassword = await req.body.newUserPassword
-    const newUserEmail = await req.body.newUserEmail
+    const newUserName = req.params.newUserName
+    const newUserPassword = req.params.newUserPassword
+    const newUserEmail = req.params.newUserEmail
 
     
     // const sameUser = accountsModel.findOne({
@@ -97,12 +97,12 @@ routes.post('/newUser', async(req, res) =>
     // }
     // else
     // {
-        const newUser = await accountsModel.create({
+        const newUser = accountsModel.create({
             userName: `${newUserName}`,
             userPassword: `${newUserPassword}`,
             userEmail: `${newUserEmail}`
         })
-        res.send(req.body)
+        res.send(req.params)
     // }
 })
 
