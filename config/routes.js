@@ -80,9 +80,9 @@ routes.post('/schedules', (req, res) =>
 routes.post('/newUser', (req, res) =>
 {
 
-    const newUserName = req.params.newUserName
-    const newUserPassword = req.params.newUserPassword
-    const newUserEmail = req.params.newUserEmail
+    const newUserName = req.body.newUserName
+    const newUserPassword = req.body.newUserPassword
+    const newUserEmail = req.body.newUserEmail
 
     
     // const sameUser = accountsModel.findOne({
@@ -102,7 +102,7 @@ routes.post('/newUser', (req, res) =>
             userPassword: `${newUserPassword}`,
             userEmail: `${newUserEmail}`
         })
-        res.send(req.params)
+        res.send(req.body)
     // }
 })
 
