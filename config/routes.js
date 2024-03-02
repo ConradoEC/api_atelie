@@ -79,9 +79,10 @@ routes.post('/schedules', (req, res) =>
 
 routes.post('/newUser', async(req, res) =>
 {
-    const newUserName = req.body.newUserName
-    const newUserPassword = req.body.newUserPassword
-    const newUserEmail = req.body.newUserEmail
+
+    const newUserName = await req.body.newUserName
+    const newUserPassword = await req.body.newUserPassword
+    const newUserEmail = await req.body.newUserEmail
 
     
     // const sameUser = accountsModel.findOne({
