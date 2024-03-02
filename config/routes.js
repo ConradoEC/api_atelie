@@ -97,11 +97,7 @@ routes.post('/newUser', (req, res) =>
     // }
     // else
     // {
-        const newUser = accountsModel.create({
-            userName: `${newUserName}`,
-            userPassword: `${newUserPassword}`,
-            userEmail: `${newUserEmail}`
-        })
+        const newUser = accountsModel.create(req.body)
         res.send(req.body)
     // }
 })
