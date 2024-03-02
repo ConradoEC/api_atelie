@@ -102,7 +102,7 @@ routes.post('/newUser', async(req, res) =>
             userPassword: `${newUserPassword}`,
             userEmail: `${newUserEmail}`
         })
-        res.send(JSON.parse(req.body))
+        res.send(req.body)
     // }
 })
 
