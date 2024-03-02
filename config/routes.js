@@ -102,7 +102,7 @@ routes.post('/newUser', async(req, res) =>
             userPassword: `${newUserPassword}`,
             userEmail: `${newUserEmail}`
         })
-        res.send([3, "Usuário criado com sucesso"])
+        res.send(req.body)
     // }
 })
 
