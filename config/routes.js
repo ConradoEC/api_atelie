@@ -86,7 +86,7 @@ routes.post('/newUser', async(req, res) =>
     // else
     // {
         const newUser = await accountsModel.create(req.body)
-        res.status(201).json(newUser)
+        res.status(200).json(newUser)
     // }
 })
 
