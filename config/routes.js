@@ -1,11 +1,11 @@
 const express = require('express')
 const routes = express.Router()
+routes.use(express.json())
 const mysql = require('mysql2')
 const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
 const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
 const dotenv = require('dotenv')
-routes.use(express.json())
 
 dotenv.config()
 connectionMongoDB()
@@ -77,32 +77,16 @@ routes.post('/schedules', (req, res) =>
     // })
 })
 
-routes.post('/newUser', (req, res) =>
+routes.post('/newUser', async(req, res) =>
 {
-
-    const newUserName = req.body.newUserName
-    const newUserPassword = req.body.newUserPassword
-    const newUserEmail = req.body.newUserEmail
-
-    
-    // const sameUser = accountsModel.findOne({
-    //     userName: `${newUserName}`,
-    //     userEmail: `${newUserEmail}`
-    // }).exec()
-
-
     // if(sameUser)
     // {
     //     res.send([2, 'Este email e usuário já estão sendo utilizados'])
     // }
     // else
     // {
-        const newUser = accountsModel.create({
-            userName: `${newUserName}`,
-            userPassword: `${newUserPassword}`,
-            userEmail: `${newUserEmail}`
-        })
-        res.send(req.body)
+        const newUser = await accountsModel.create(req.body)
+        res.status(201).json(newUser)
     // }
 })
 

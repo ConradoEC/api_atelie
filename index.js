@@ -1,11 +1,11 @@
 const express = require('express')
-const routes = require('./config/routes.js')
 const app = express()
+app.use(express.json())
 const PORT = 3000
+const routes = require('./config/routes.js')
 const dotenv = require('dotenv')
 
 app.use(routes)
-app.use(express.json())
 dotenv.config()
 
 app.listen(process.env.PORT ? Number(process.env.PORT) : PORT, () => 
