@@ -85,7 +85,11 @@ routes.post('/newUser', async(req, res) =>
     // }
     // else
     // {
-        const newUser = await accountsModel.create(req.body)
+        const newUser = await accountsModel.create({
+            userName: req.body.userName,
+            userPassword: req.body.userPassword,
+            userEmail: req.body.userEmail
+        })
         res.status(200).json(newUser)
     // }
 })
