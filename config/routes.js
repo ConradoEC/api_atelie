@@ -10,10 +10,10 @@ const dotenv = require('dotenv')
 dotenv.config()
 connectionMongoDB()
 
-routes.get('/schedules', (req, res) =>
+routes.get('/schedules', async(req, res) =>
 {
-    const allSchedules = scheduleModel.find({})
-    // res.send(JSON.parse(allSchedules))
+    const allSchedules = await scheduleModel.find({})
+    res.send(allSchedules)
 
     // (async() => {
     //     await sequelize_schedules.sync()
@@ -22,9 +22,9 @@ routes.get('/schedules', (req, res) =>
     // })()
 })
 
-routes.get('/accounts', (req, res) =>
+routes.get('/accounts', async(req, res) =>
 {
-    const allAccounts = accountsModel.find({})
+    const allAccounts = await accountsModel.findOne({userName: 'Erick'})
     res.send(allAccounts)
     // console.log(JSON.parse(allAccounts))
     
@@ -36,7 +36,7 @@ routes.get('/accounts', (req, res) =>
     // })()
 })
 
-routes.post('/schedules', (req, res) =>
+routes.post('/schedules', async(req, res) =>
 {
     const title = req.body.title
     const scheduleDate = req.body.scheduleDate
@@ -79,39 +79,45 @@ routes.post('/schedules', (req, res) =>
 
 routes.post('/newUser', async(req, res) =>
 {
-    // if(sameUser)
-    // {
-    //     res.send([2, 'Este email e usuário já estão sendo utilizados'])
-    // }
-    // else
-    // {
+    const samePassword = await accountsModel.findOne({
+        userPassword: req.body.userPassword
+    })
+
+    const sameEmail = await accountsModel.findOne({
+        userEmail: req.body.userEmail
+    })
+
+    if(samePassword || sameEmail)
+    {
+        res.send('2')
+    }
+    else
+    {
         console.log('Esse é o body ' + req.body)
         const newUser = await accountsModel.create({
             userName: req.body.userName,
             userPassword: req.body.userPassword,
             userEmail: req.body.userEmail
         })
-        res.status(200).json(newUser)
-    // }
+        // res.status(200).json(newUser)
+        res.status(200).send('Usuário criado')
+    }
 })
 
-routes.post('/login', (req, res) =>  
+routes.post('/login', async(req, res) =>  
 {
-    const userName = req.body.varUserName
-    const userPassword = req.body.varUserPassword
-
-    const thisUser = accountsModel.findOne({
-        userName: `${userName}`,
-        userPassword: `${userPassword}`
+    const thisUser = await accountsModel.findOne({
+        userName: req.body.userName,
+        userPassword: req.body.userPassword
     }).exec()
 
     if(thisUser)
     {
-        res.send([thisUser, 'Acesso permitido'])
+        res.send(['1', thisUser])
     }
     else
     {
-        res.send([thisUser, 'Acesso negado'])
+        res.send('2')
     }
 })
 
