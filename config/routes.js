@@ -51,6 +51,7 @@ routes.post('/schedules', async(req, res) =>
         costumerId: req.body.costumerId
     })
 
+    res.status(200).send('Agendamento criado criado')
 
     // const newSchedule = schedulings.create({
     //     title: `${title}`,
