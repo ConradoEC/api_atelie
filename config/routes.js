@@ -38,28 +38,17 @@ routes.get('/accounts', async(req, res) =>
 
 routes.post('/schedules', async(req, res) =>
 {
-    const title = await req.body.title
-    const scheduleDate = await req.body.scheduleDate
-    const scheduleTime = await req.body.scheduleTime
-    const costumerName = await req.body.costumerName
-    const costumerCell = await req.body.costumerCell
-    const costumerEmail = await req.body.costumerEmail
-    const description = await req.body.description
-    const marker = await req.body.marker
-    const price = await req.body.price
-    const costumerId = await req.body.costumerId
-
     const newSchedule = await scheduleModel.create({
-        title: `${title}` ,
-        scheduleDate: `${scheduleDate}` ,
-        schedulingTime: `${scheduleTime}` ,
-        costumerName: `${costumerName}` ,
-        costumerCell: `${costumerCell}` ,
-        costumerEmail: `${costumerEmail}` ,
-        description: `${description}` ,
-        marker: `${marker}` ,
-        price: `${price}` ,
-        costumerId: `${costumerId}`
+        title: req.body.title,
+        scheduleDate: req.body.scheduleDate,
+        schedulingTime: req.body.scheduleTime,
+        costumerName: req.body.costumerName,
+        costumerCell: req.body.costumerCell,
+        costumerEmail: req.body.costumerEmail,
+        description: req.body.description,
+        marker: req.body.marker,
+        price: req.body.price,
+        costumerId: req.body.costumerId
     })
 
 
