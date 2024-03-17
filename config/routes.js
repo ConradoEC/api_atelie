@@ -38,18 +38,18 @@ routes.get('/accounts', async(req, res) =>
 
 routes.post('/schedules', async(req, res) =>
 {
-    const title = req.body.title
-    const scheduleDate = req.body.scheduleDate
-    const scheduleTime = req.body.scheduleTime
-    const costumerName = req.body.costumerName
-    const costumerCell = req.body.costumerCell
-    const costumerEmail = req.body.costumerEmail
-    const description = req.body.description
-    const marker = req.body.marker
-    const price = req.body.price
-    const costumerId = req.body.costumerId
+    const title = await req.body.title
+    const scheduleDate = await req.body.scheduleDate
+    const scheduleTime = await req.body.scheduleTime
+    const costumerName = await req.body.costumerName
+    const costumerCell = await req.body.costumerCell
+    const costumerEmail = await req.body.costumerEmail
+    const description = await req.body.description
+    const marker = await req.body.marker
+    const price = await req.body.price
+    const costumerId = await req.body.costumerId
 
-    const newSchedule = scheduleModel.create({
+    const newSchedule = await scheduleModel.create({
         title: `${title}` ,
         scheduleDate: `${scheduleDate}` ,
         schedulingTime: `${scheduleTime}` ,

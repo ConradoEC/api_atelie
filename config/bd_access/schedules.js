@@ -46,7 +46,7 @@ const scheduleSchema = new mongoose.Schema({
         allowNull: false
     },
     costumerId: {
-        type: Number,
+        type: String,
         allowNull: false,
     }
 })
