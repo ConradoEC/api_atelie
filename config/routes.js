@@ -41,7 +41,7 @@ routes.post('/schedules', async(req, res) =>
     const newSchedule = await scheduleModel.create({
         title: req.body.title,
         scheduleDate: req.body.scheduleDate,
-        schedulingTime: req.body.scheduleTime,
+        scheduleTime: req.body.scheduleTime,
         costumerName: req.body.costumerName,
         costumerCell: req.body.costumerCell,
         costumerEmail: req.body.costumerEmail,
@@ -52,19 +52,6 @@ routes.post('/schedules', async(req, res) =>
     })
 
     res.status(200).send('Agendamento criado criado')
-
-    // const newSchedule = schedulings.create({
-    //     title: `${title}`,
-    //     scheduleDate: `${scheduleDate}`,
-    //     scheduleTime: `${scheduleTime}`,
-    //     costumerName: `${costumerName}`,
-    //     costumerCell: `${costumerCell}`,
-    //     costumerEmail: `${costumerEmail}`,
-    //     description: `${description}`,
-    //     marker: `${marker}`,
-    //     price: `${price}`,
-    //     costumerId: `${costumerId}`
-    // })
 })
 
 routes.post('/newUser', async(req, res) =>
