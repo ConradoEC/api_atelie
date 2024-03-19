@@ -11,11 +11,11 @@ const scheduleSchema = new mongoose.Schema({
         type: String,
         allowNull: false
     },
-    schedulingDate: {
+    scheduleDate: {
         type: String,
         allowNull: false
     },
-    schedulingTime: {
+    scheduleTime: {
         type: String,
         allowNull: false
     },
