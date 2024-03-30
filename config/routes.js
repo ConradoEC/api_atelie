@@ -54,6 +54,18 @@ routes.post('/schedules', async(req, res) =>
     res.status(200).send('Agendamento criado criado')
 })
 
+routes.post('/updateSchedule', async(req, res) => {
+    await scheduleModel.updateOne(
+        {_id: req.body._id},
+        [req.body])
+    .then(() => {
+        res.send("Atualizado com sucesso")
+    })
+    .catch(() => {
+        res.send("Ocorreu um erro na atualização")
+    })
+})
+
 routes.post('/newUser', async(req, res) =>
 {
     const samePassword = await accountsModel.findOne({
@@ -94,10 +106,9 @@ routes.post('/login', async(req, res) =>
     }
     else
     {
-        res.send('2')
+        res.send(['2', 'Não foi possível verificar o usuário, consulte sua internet'])
     }
 })
 
-// just a test
 
 module.exports = routes
