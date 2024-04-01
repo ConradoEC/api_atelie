@@ -55,14 +55,14 @@ routes.post('/schedules', async(req, res) =>
 })
 
 routes.post('/updateSchedule', async(req, res) => {
-    await scheduleModel.updateOne(
-        {_id: req.body._id},
-        [req.body])
+    const updateSchedule = await scheduleModel.updateOne(
+        {"_id": req.body._id},
+        req.body)
     .then(() => {
         res.send("Atualizado com sucesso")
     })
-    .catch(() => {
-        res.send("Ocorreu um erro na atualização")
+    .catch((error) => {
+        res.send("Ocorreu um erro na atualização: " + error)
     })
 })
 
@@ -102,11 +102,11 @@ routes.post('/login', async(req, res) =>
 
     if(thisUser)
     {
-        res.send(['1', thisUser])
+        res.send([{"resNumber": 1}, thisUser])
     }
     else
     {
-        res.send(['2', 'Não foi possível verificar o usuário, consulte sua internet'])
+        res.send([{"resNumber": 2}, {"resText": "Não foi possível verificar o usuário, consulte sua internet"}])
     }
 })
 
