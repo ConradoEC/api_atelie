@@ -5,6 +5,7 @@ const mysql = require('mysql2')
 const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
 const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
+const recipeModel = require('./bd_access/recipes.js')
 const dotenv = require('dotenv')
 
 dotenv.config()
@@ -20,6 +21,12 @@ routes.get('/schedules', async(req, res) =>
     //     const allSchedulings = await schedulings.findAll()
     //     res.send(allSchedulings)
     // })()
+})
+
+routes.get('/recipes', async(req, res) => 
+{
+    const allRecipes = await recipeModel.find({})
+    res.send(allRecipes)
 })
 
 routes.get('/accounts', async(req, res) =>
@@ -52,6 +59,17 @@ routes.post('/schedules', async(req, res) =>
     })
 
     res.status(200).send('Agendamento criado criado')
+})
+
+routes.post('/recipes', async(req, res) => 
+{
+    const newRecipe = await recipeModel.create({
+        recipeName: req.body.recipeName,
+        recipePrice: req.body.recipePrice,
+        recipeDescription: req.body.recipeDescription 
+    })
+
+    res.status(200).send('Receita criada')
 })
 
 routes.post('/updateSchedule', async(req, res) => {
