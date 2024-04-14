@@ -125,6 +125,8 @@ routes.post('/markers', async(req, res) =>
         markerName: req.body.markerName,
         userId: req.body.userId
     })
+
+    res.status(200).send('Rótulo criado')
 })
 
 routes.post('/login', async(req, res) =>  
