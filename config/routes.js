@@ -121,12 +121,12 @@ routes.post('/login', async(req, res) =>
     if(thisUser)
     {
         
-        res.send(JSON.stringify([{response: 1, result: thisUser}]))
+        res.end(JSON.stringify([{response: 1, result: thisUser}]))
     }
     else
     {
         
-        res.send(JSON.stringify([{response: 2, result: "nothing"}]))
+        res.end(JSON.stringify([{response: 2, result: "nothing"}]))
     }
 })
 
