@@ -120,11 +120,11 @@ routes.post('/login', async(req, res) =>
 
     if(thisUser)
     {
-        res.send([{"resNumber": 1}, thisUser])
+        res.send(1)
     }
     else
     {
-        res.send([{"resNumber": 2}, {"resText": "Não foi possível verificar o usuário, consulte sua internet"}])
+        res.send(2)
     }
 })
 
