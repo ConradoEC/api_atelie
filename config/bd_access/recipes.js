@@ -18,6 +18,10 @@ const recipeSchema = new mongoose.Schema({
     recipeDescription: {
         type: String,
         allowNull: false
+    },
+    userId: {
+        type: String,
+        allowNull: false
     }
 })
 
