@@ -120,11 +120,11 @@ routes.post('/login', async(req, res) =>
 
     if(thisUser)
     {
-        res.send(1)
+        res.send("1")
     }
     else
     {
-        res.send(2)
+        res.send("2")
     }
 })
 
