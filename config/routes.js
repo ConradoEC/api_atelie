@@ -6,6 +6,7 @@ const connectionMongoDB = require('./bd_access/connectionMongoDB.js')
 const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
 const recipeModel = require('./bd_access/recipes.js')
+const markerModel = require('./bd_access/markers.js')
 const dotenv = require('dotenv')
 
 dotenv.config()
@@ -31,7 +32,7 @@ routes.get('/recipes', async(req, res) =>
 
 routes.get('/accounts', async(req, res) =>
 {
-    const allAccounts = await accountsModel.findOne({userName: 'Erick'})
+    const allAccounts = await accountsModel.find({})
     res.send(allAccounts)
     // console.log(JSON.parse(allAccounts))
     
@@ -41,6 +42,12 @@ routes.get('/accounts', async(req, res) =>
     //     const allAccounts = await accounts.findAll()
     //     res.send(allAccounts)
     // })()
+})
+
+routes.get('/markers', async(req, res) => 
+{
+    const allMarkers = await markerModel.find({})
+    res.send(allMarkers)
 })
 
 routes.post('/schedules', async(req, res) =>
@@ -66,7 +73,8 @@ routes.post('/recipes', async(req, res) =>
     const newRecipe = await recipeModel.create({
         recipeName: req.body.recipeName,
         recipePrice: req.body.recipePrice,
-        recipeDescription: req.body.recipeDescription 
+        recipeDescription: req.body.recipeDescription,
+        userId: req.body.userId 
     })
 
     res.status(200).send('Receita criada')
@@ -109,6 +117,14 @@ routes.post('/newUser', async(req, res) =>
         // res.status(200).json(newUser)
         res.status(200).send('Usuário criado')
     }
+})
+
+routes.post('/markers', async(req, res) => 
+{
+    const newMarker = markerModel.create({
+        markerName: req.body.markerName,
+        userId: req.body.userId
+    })
 })
 
 routes.post('/login', async(req, res) =>  
