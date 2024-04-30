@@ -62,7 +62,8 @@ routes.post('/schedules', async(req, res) =>
         description: req.body.description,
         marker: req.body.marker,
         price: req.body.price,
-        userId: req.body.userId
+        price: req.body.ready,
+        userId: 0
     })
 
     res.status(200).send('Agendamento criado criado')

@@ -45,6 +45,10 @@ const scheduleSchema = new mongoose.Schema({
         type: Number,
         allowNull: false
     },
+    ready: {
+        type: Number,
+        allowNull: false
+    },
     userId: {
         type: String,
         allowNull: false,
