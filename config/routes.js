@@ -15,13 +15,7 @@ connectionMongoDB()
 routes.get('/schedules', async(req, res) =>
 {
     const allSchedules = await scheduleModel.find({})
-    res.send(allSchedules)
-
-    // (async() => {
-    //     await sequelize_schedules.sync()
-    //     const allSchedulings = await schedulings.findAll()
-    //     res.send(allSchedulings)
-    // })()
+    res.send(allSchedules)   
 })
 
 routes.get('/recipes', async(req, res) => 
@@ -149,5 +143,13 @@ routes.post('/login', async(req, res) =>
     }
 })
 
+routes.delete('/deleteSchedules:date', (req, res) => 
+{
+    const ids = req.body._id
+    ids.forEach((item) => 
+    {
+        scheduleModel.deleteMany({_id: item})
+    })
+})
 
 module.exports = routes
