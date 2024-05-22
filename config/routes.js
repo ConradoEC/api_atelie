@@ -116,7 +116,7 @@ routes.post('/newUser', async(req, res) =>
 
 routes.post('/markers', async(req, res) => 
 {
-    const newMarker = markerModel.create({
+    const newMarker = await markerModel.create({
         markerName: req.body.markerName,
         userId: req.body.userId
     })
@@ -143,13 +143,31 @@ routes.post('/login', async(req, res) =>
     }
 })
 
-routes.delete('/deleteSchedules:date', (req, res) => 
+routes.delete('/deleteSchedules:id', async(req, res) => 
 {
-    const ids = req.body._id
-    ids.forEach((item) => 
+    stringId = req.params.id
+    const ids = stringId.split('#')
+    
+    const deleteSchedule = await scheduleModel.deleteMany({_id: ids})
+
+    ids.forEach(item => async function()
     {
-        scheduleModel.deleteMany({_id: item})
+        const deleteSchedule = await scheduleModel.deleteOne({_id: item})
+        console.log('olaolaolaoal')
     })
+
+    // const deleteSchedule = await scheduleModel.deleteOne({_id: idk})
+
+    if(res.statusCode == 200)
+    {
+        console.log("Deletado ")
+        res.send('Deletado')
+    }
+    else
+    {
+        console.log("Falhou " + res.statusCode)
+        res.send("Falhou " + res.statusCode)
+    }
 })
 
 module.exports = routes
