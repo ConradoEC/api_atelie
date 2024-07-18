@@ -148,15 +148,15 @@ routes.delete('/deleteSchedules:id', async(req, res) =>
     stringId = req.params.id
     const ids = stringId.split('#')
     
+    console.log(ids)
+
     const deleteSchedule = await scheduleModel.deleteMany({_id: ids})
 
-    ids.forEach(item => async function()
-    {
-        const deleteSchedule = await scheduleModel.deleteOne({_id: item})
-        console.log('olaolaolaoal')
-    })
-
-    // const deleteSchedule = await scheduleModel.deleteOne({_id: idk})
+    // ids.forEach(item => async function()
+    // {
+    //     const deleteSchedule = await scheduleModel.deleteOne({_id: item})
+    //     console.log('olaolaolaoal')
+    // })
 
     if(res.statusCode == 200)
     {
