@@ -145,7 +145,7 @@ routes.post('/login', async(req, res) =>
 
 routes.delete('/deleteSchedules:id', async(req, res) => 
 {
-    stringId = req.params.id
+    stringId = await req.params.id
     var ids = await stringId.split('#')
     await ids.pop() 
 
