@@ -149,7 +149,7 @@ routes.delete('/deleteSchedules:id', async(req, res) =>
     var ids = await stringId.split('#')
     await ids.pop() 
 
-    console.log(ids)
+    console.log(stringId)
 
     const deleteSchedule = await scheduleModel.deleteMany({_id: ids})
 
