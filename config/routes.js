@@ -146,17 +146,45 @@ routes.post('/login', async(req, res) =>
 routes.delete('/deleteSchedules:id', async(req, res) => 
 {
     stringId = req.params.id
-    const ids = stringId.split('#')
-    
+    var ids = await stringId.split('#')
+    await ids.pop() 
+
     console.log(ids)
 
     const deleteSchedule = await scheduleModel.deleteMany({_id: ids})
 
-    // ids.forEach(item => async function()
+    // await ids.forEach(item => async function()
     // {
-    //     const deleteSchedule = await scheduleModel.deleteOne({_id: item})
-    //     console.log('olaolaolaoal')
+    //     if(item != '')
+    //     {
+    //         const deleteSchedule = await scheduleModel.deleteOne({_id: item})
+    //         .then(() => 
+    //         {
+    //             console.log('deletado')
+    //             res.send('deletado')
+    //         })
+    //         .catch((error) => 
+    //         {
+    //             console.log(error)
+    //             res.send(error)
+    //         })
+    //     }
+        
     // })
+
+    // {
+    //     "title": "aa3",
+    //     "scheduleDate": "03/07/2024",
+    //     "scheduleTime": "01:55",
+    //     "costumerName": "aa",
+    //     "costumerCell": "(22) 22333-2222",
+    //     "costumerEmail": "www",
+    //     "description": "aaa",
+    //     "marker": "Sem rótulo",
+    //     "price": 4455,
+    //     "ready": 1,
+    //     "userId": "65ee227ca5ea1bed2166ed6b"
+    // }
 
     if(res.statusCode == 200)
     {
