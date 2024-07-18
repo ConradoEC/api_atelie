@@ -146,10 +146,10 @@ routes.post('/login', async(req, res) =>
 routes.delete('/deleteSchedules:id', async(req, res) => 
 {
     stringId = await req.params.id
-    var ids = await stringId.split('#')
+    var ids = await stringId.split('_')
     await ids.pop() 
 
-    console.log(stringId)
+    console.log(ids)
 
     const deleteSchedule = await scheduleModel.deleteMany({_id: ids})
 
@@ -184,6 +184,7 @@ routes.delete('/deleteSchedules:id', async(req, res) =>
     //     "price": 4455,
     //     "ready": 1,
     //     "userId": "65ee227ca5ea1bed2166ed6b"
+    //      git add .; git commit -m ""; git push
     // }
 
     if(res.statusCode == 200)
