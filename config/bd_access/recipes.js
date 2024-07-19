@@ -15,6 +15,10 @@ const recipeSchema = new mongoose.Schema({
         type: Number,
         allowNull: false
     },
+    recipeIngredients: {
+        type: String,
+        allowNull: false
+    },
     recipeDescription: {
         type: String,
         allowNull: false
