@@ -68,7 +68,7 @@ routes.post('/recipes', async(req, res) =>
     const newRecipe = await recipeModel.create({
         recipeName: req.body.recipeName,
         recipePrice: req.body.recipePrice,
-        recipeDescription: req.body.recipe,
+        recipeDescription: req.body.recipeDescription,
         recipeIngredients: req.body.recipeIngredients,
         userId: req.body.userId 
     })
