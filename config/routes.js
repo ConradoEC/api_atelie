@@ -135,6 +135,19 @@ routes.post('/updateSchedule', async(req, res) => {
                     console.log("O erro foi: " + error)
                 })
             }
+            else if(counterMarkerElements[i].nameCounterMarker == `${req.body.oldMarker}`)
+            {
+                counterMarkerElements[i].numberCounterMarker = counterMarkerElements[i].numberCounterMarker - 1
+                const updateCounter = counterModel.updateOne({nameCounterMarker: `${req.body.marker}`}, {numberCounterMarker: counterMarkerElements[i].numberCounterMarker})
+                .then(response => 
+                {
+                    console.log('Its ok')
+                })
+                .catch(error => 
+                {
+                    console.log("O erro foi: " + error)
+                })
+            }
         }
     }
 })
