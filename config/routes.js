@@ -7,7 +7,10 @@ const scheduleModel = require('./bd_access/schedules.js')
 const accountsModel = require('./bd_access/accounts.js')
 const recipeModel = require('./bd_access/recipes.js')
 const markerModel = require('./bd_access/markers.js')
+const counterModel = require('./bd_access/countMarkers.js')
 const dotenv = require('dotenv')
+
+var counterMarkerElements
 
 dotenv.config()
 connectionMongoDB()
@@ -40,8 +43,19 @@ routes.get('/accounts', async(req, res) =>
 
 routes.get('/markers', async(req, res) => 
 {
+    const content_counterMarkerElements = await counterModel.find({})
+    .then((content_counterMarkerElements) => {
+        console.log('Deu tudo certo')
+        counterMarkerElements = content_counterMarkerElements
+        console.log(counterMarkerElements)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+
     const allMarkers = await markerModel.find({})
     res.send(allMarkers)
+    
 })
 
 routes.post('/schedules', async(req, res) =>
@@ -59,6 +73,23 @@ routes.post('/schedules', async(req, res) =>
         ready: 0,
         userId: req.body.userId
     })
+
+    for(i = 0; i < counterMarkerElements.length; i++) 
+    {
+        if(counterMarkerElements[i].nameCounterMarker == `${req.body.marker}`)
+        {
+            counterMarkerElements[i].numberCounterMarker = counterMarkerElements[i].numberCounterMarker + 1
+            const updateCounter = counterModel.updateOne({nameCounterMarker: `${req.body.marker}`}, {numberCounterMarker: counterMarkerElements[i].numberCounterMarker})
+            .then(response => 
+            {
+                console.log('Its ok')
+            })
+            .catch(error => 
+            {
+                console.log("O erro foi: " + error)
+            })
+        }
+    }
 
     res.status(200).send('Agendamento criado criado')
 })
@@ -86,7 +117,28 @@ routes.post('/updateSchedule', async(req, res) => {
     .catch((error) => {
         res.send("Ocorreu um erro na atualização: " + error)
     })
+
+    if(req.body.marker)
+    {
+        for(i = 0; i < counterMarkerElements.length; i++) 
+        {
+            if(counterMarkerElements[i].nameCounterMarker == `${req.body.marker}`)
+            {
+                counterMarkerElements[i].numberCounterMarker = counterMarkerElements[i].numberCounterMarker + 1
+                const updateCounter = counterModel.updateOne({nameCounterMarker: `${req.body.marker}`}, {numberCounterMarker: counterMarkerElements[i].numberCounterMarker})
+                .then(response => 
+                {
+                    console.log('Its ok')
+                })
+                .catch(error => 
+                {
+                    console.log("O erro foi: " + error)
+                })
+            }
+        }
+    }
 })
+
 
 routes.post('/newUser', async(req, res) =>
 {
@@ -120,6 +172,12 @@ routes.post('/markers', async(req, res) =>
     const newMarker = await markerModel.create({
         markerName: req.body.markerName,
         userId: req.body.userId
+    })
+
+    const newCounterMarker = await counterModel.create({
+        userId: req.body.userId,
+        nameCounterMarker: req.body.markerName,
+        numberCounterMarker: 0
     })
 
     res.status(200).send('Rótulo criado')
@@ -197,6 +255,22 @@ routes.delete('/deleteSchedules:id', async(req, res) =>
     {
         console.log("Falhou " + res.statusCode)
         res.send("Falhou " + res.statusCode)
+    }
+})
+
+
+
+
+routes.get('/teste', (req, res) => 
+{
+    for(i = 0; i < counterMarkerElements.length; i++) 
+    {
+        if(counterMarkerElements[i].nameCounterMarker == 'nao')
+        {
+            counterMarkerElements[i].numberCounterMarker = counterMarkerElements[i].numberCounterMarker + 1
+            console.log(counterMarkerElements[i].numberCounterMarker)
+            res.send(counterMarkerElements[i])
+        }
     }
 })
 
