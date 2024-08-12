@@ -55,7 +55,6 @@ routes.get('/markers', async(req, res) =>
 
     const allMarkers = await markerModel.find({})
     res.send(allMarkers)
-    
 })
 
 routes.post('/schedules', async(req, res) =>
@@ -138,7 +137,7 @@ routes.post('/updateSchedule', async(req, res) => {
             else if(counterMarkerElements[i].nameCounterMarker == `${req.body.oldMarker}`)
             {
                 counterMarkerElements[i].numberCounterMarker = counterMarkerElements[i].numberCounterMarker - 1
-                const updateCounter = counterModel.updateOne({nameCounterMarker: `${req.body.marker}`}, {numberCounterMarker: counterMarkerElements[i].numberCounterMarker})
+                const updateCounter = counterModel.updateOne({nameCounterMarker: `${req.body.oldMarker}`}, {numberCounterMarker: counterMarkerElements[i].numberCounterMarker})
                 .then(response => 
                 {
                     console.log('Its ok')
